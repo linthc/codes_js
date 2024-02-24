@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>05-各場合this指向匯總</title>
+</head>
+<body>
+  <script>
+    // this的各使用場合
+
+    /*
+      1、全局環境
+        全局環境的this，指的是window
+    */
+   function fn(){
+    console.log(this === window);
+   }
+   fn() // true
+   window.fn() // true
+   console.log(this === window); // true
+
+    /*
+      2、構造函數
+        構造函數中的this，指的是實例對象
+    */
+   function Fn(p){
+    this.bar = p
+    console.log(this);
+   }
+   var obj1 = new Fn('obj1')
+   var obj2 = new Fn('obj2')
+
+    /*
+      3、對象的方法
+        如果對象的方法裡面，包含this, this指向方法運行時所在的對象。
+        將方法賦值給另一個對象的方法，就會改變this指向 
+    */
+    var obj3 = {
+      bar: 1,
+      fn: function(){
+        // 這裡保存的只是函數的地址，
+        // 從作用域層面去考慮，跟放在全局沒有什麼區別。
+        console.log(this.bar);
+      }
+    }
+    obj3.fn() // 1
+
+    var obj4 = {
+      bar: 2
+    }
+    obj4.fn = obj3.fn // 將一個對象的方法，作為地址賦值給另一個對象屬性的話，
+                      // 那麼調用此函數的對象，一旦變化，this指向也就跟著變化了。
+    obj4.fn() // 2
+
+    var bar = 3
+    var fn = obj3.fn // 這是地址
+    fn()
+
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //使用 new 命令實例化構造函數
+    /*function Person(){
+      this.userName = 'xiaoming'
+      // return true // 如果返回的是非對象數據，則會被忽略，
+      // 直接返回this對象
+      return {
+        username : 'xiaohua'
+      }// 如果返回的是對象，則此返回的對象會把this對象覆蓋掉
+    }
+    var p1 = new Person()
+    console.log(p1);*/
+
+    
+    // 沒有使用this的函數，如果返回的是非對象數據，返回的則是一個空對象
+    // function Person(){
+    //   return 1
+    // }
+    // var p1 = new Person()
+    // console.log(p1);
+
+    // 總結：new命令總是返回一個對象，要麼是實例對象，要麼是
+    // 函數內return 語句指定的對象。
+
+    // new.target
+    function Person(userName){
+      // console.log(new.target);
+      if(!new.target){
+        return new Person(userName)
+      }
+      this.userName = userName
+    }
+    var p1 = Person('xiaoming')
+    console.log(p1);
+    var p2 = new Person('xiaohua')
+    console.log(p2);
+  </script>
+</body>
+</html>

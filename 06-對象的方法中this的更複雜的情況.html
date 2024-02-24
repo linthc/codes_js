@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>06-對象的方法中this的更複雜的情況</title>
+</head>
+<body>
+  <script>
+    var bar = 1
+    var obj = {
+      bar: 2,
+      fn: function(){
+        // 這裡保存的只是函數的地址，
+        // 從作用域層面去考慮，跟放在全局沒有什麼區別。
+        console.log(this.bar);
+      }
+    }
+    obj.fn();  // 2 
+    (obj.fn = obj.fn)();  // 1 // = 拿到fn的地址
+    // (true || obj.fn)(); // 報錯
+    (false || obj.fn)(); // 1
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>04-為什麼要設計this</title>
+</head>
+<body>
+  <script>
+    var a = 2
+    function fn(){
+        // console.log(obj.a);
+        console.log(this.a);
+        // js中一切皆對象，運行環境也是對象，所以函數都是在某個對象下運行的，
+        // this就是指函數運行時，所在的對象(環境)，所以this是動態的，在調用之前
+        // 是不確定的，只有在調用的時候，才可以確定this的指向。
+      }
+    var obj = {
+      a: 1,
+      fn: fn
+    }
+    obj.fn() // 指向obj的a
+    fn()  // 指向window的a
+    var obj2 = {
+      a: 3,
+      fn: fn
+    }
+    obj2.fn() // 指向obj2的a
+  </script>
+</body>
+</html>
